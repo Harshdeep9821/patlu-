@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Patlu 💚 Motu | 1st Anniversary</title>
+<title>Patlu 💚 Motu | Will You Be My Valentine?</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- WhatsApp / Social Share -->
+<meta property="og:title" content="Patlu 💚 Motu | Will You Be My Valentine?" />
+<meta property="og:description" content="A small surprise for Arpita… open it 💍" />
+<meta property="og:image" content="https://harshdeep9821.github.io/patlu/IMG-20250309-WA1128.jpg" />
+<meta property="og:url" content="https://harshdeep9821.github.io/patlu/" />
+<meta property="og:type" content="website" />
 
 <style>
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     font-family: "Segoe UI", Arial, sans-serif;
     background: linear-gradient(135deg, #1abc9c, #2ecc71);
     display: flex;
@@ -28,9 +35,7 @@
     z-index: 2;
   }
 
-  .screen.active {
-    display: block;
-  }
+  .screen.active { display: block; }
 
   .heart {
     font-size: 80px;
@@ -93,6 +98,14 @@
     font-weight: bold;
   }
 
+  .secret {
+    margin-top: 20px;
+    padding: 18px;
+    border-radius: 15px;
+    font-size: 18px;
+    background: rgba(255,255,255,0.25);
+  }
+
   .sign {
     margin-top: 20px;
     font-size: 21px;
@@ -139,7 +152,6 @@
   <h1>My Patlu</h1>
   <h2>1 Year of Togetherness 💍</h2>
 
-  <!-- PHOTO -->
   <img src="IMG-20250309-WA1128.jpg" alt="Patlu & Motu" class="photo">
 
   <div class="card">
@@ -155,7 +167,11 @@
     </p>
 
     <div class="countdown" id="countdown">
-      Loading 1st anniversary countdown…
+      Loading anniversary countdown…
+    </div>
+
+    <div class="secret" id="secret">
+      🔒 This message will unlock on our <b>1st Anniversary</b> 💍
     </div>
 
     <div class="sign">
@@ -174,6 +190,7 @@
     document.getElementById('ask').classList.remove('active');
     document.getElementById('love').classList.add('active');
     startCountdown();
+    unlockSecret();
   }
 
   function moveNo() {
@@ -184,16 +201,12 @@
   }
 
   function startCountdown() {
-    const anniversary = new Date(new Date().getFullYear(), 1, 12);
-
-    if (new Date() > anniversary) {
-      anniversary.setFullYear(anniversary.getFullYear() + 1);
-    }
+    const now = new Date();
+    let anniversary = new Date(now.getFullYear(), 1, 12, 0, 0, 0);
+    if (now > anniversary) anniversary.setFullYear(anniversary.getFullYear() + 1);
 
     setInterval(() => {
-      const now = new Date();
-      const diff = anniversary - now;
-
+      const diff = anniversary - new Date();
       const d = Math.floor(diff / (1000*60*60*24));
       const h = Math.floor((diff / (1000*60*60)) % 24);
       const m = Math.floor((diff / (1000*60)) % 60);
@@ -204,7 +217,22 @@
     }, 1000);
   }
 
-  // Falling hearts
+  function unlockSecret() {
+    const today = new Date();
+    const unlockDate = new Date(today.getFullYear(), 1, 12, 0, 0, 0);
+
+    if (today >= unlockDate) {
+      document.getElementById("secret").innerHTML = `
+        💌 <b>My Patlu,</b><br><br>
+        One year down, forever to go.<br>
+        You are my home, my heart,
+        and my best decision.<br><br>
+        <b>I love you endlessly 💚</b><br>
+        — Your Motu 💍
+      `;
+    }
+  }
+
   setInterval(() => {
     const heart = document.createElement('div');
     heart.className = 'falling-heart';
